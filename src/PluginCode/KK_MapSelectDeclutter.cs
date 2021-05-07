@@ -114,12 +114,6 @@ namespace KK_MapSelectDeclutter
 
         }
 
-        private static void ConsoleLog(string value)
-        {
-            Logger.Log(LogLevel.All, GUID + ": " + value);
-        }
-
-
         private static void DeclutterMapList()
         {
             Image[] images = FindObjectsOfType<Image>();
