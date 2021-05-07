@@ -40,11 +40,6 @@ namespace KK_MapSelectDeclutter
                 Harmony.CreateAndPatchAll(typeof(Hooks), GUID);
             }
         }
-        
-
-
-
-
 
         private static class Hooks
         {
@@ -61,7 +56,7 @@ namespace KK_MapSelectDeclutter
                 inMapScreen = GameObject.Find("VRCharaSelectScene");
                 isVR = inMapScreen;
             }
-            
+
             //desktop version's map select is a whole separate scene, which means we need to wait until the scene is loaded to try removing thumbnails
             [HarmonyPostfix]
             [HarmonyPatch(typeof(MapSelectMenuScene), "Start")]
@@ -74,6 +69,8 @@ namespace KK_MapSelectDeclutter
                 {
                     yield return new WaitUntil(() => GameObject.Find("MapSelectMenu/Canvas/Panel/ScrollView/Content/NodeFrame(Clone)/MapButton") != null);
                     DeclutterMapList();
+
+                    GameObject.Find("MapSelectMenu/Canvas/Panel/RightBG/btnEnter").GetComponent<Button>().onClick.AddListener(() => { SetMainCanvasThumbnail(isVR, ThumbnailState.Unset); });
                 }
             }
 
@@ -102,16 +99,12 @@ namespace KK_MapSelectDeclutter
                     DeclutterMapList();
                     SetMainCanvasThumbnail(isVR, ThumbnailState.Default);
 
-                    if(isVR)
-                    { 
+                    if (isVR)
+                    {
                         GameObject.Find("MapCanvas/Panel/RightBG/btnEnter").GetComponent<Button>().onClick.AddListener(() => { SetMainCanvasThumbnail(isVR, ThumbnailState.Unset); });
                     }
-                    
                 }
             }
-
-
-
         }
 
         private static void DeclutterMapList()
@@ -134,7 +127,6 @@ namespace KK_MapSelectDeclutter
                         thumbNames.Add(param.ThumbnailAsset);
                     }
                 }
-
             }
 
             List<GameObject> nodeFrames = new List<GameObject>();
@@ -180,7 +172,6 @@ namespace KK_MapSelectDeclutter
                         newChild.SetParent(nodeFrame.transform);
                         nodeFrame.gameObject.SetActive(true);
                     }
-
                 }
                 if (nodeFrame.transform.childCount == 0)
                 {
@@ -191,7 +182,6 @@ namespace KK_MapSelectDeclutter
 
         private static void SetMainCanvasThumbnail(bool isVR, ThumbnailState thumbnailState)
         {
-            
             string gameObjectLookup = isVR ? "MainCanvas/Panel" : "FreeHScene/Canvas/Panel";
 
             var parent = GameObject.Find(gameObjectLookup);
@@ -203,15 +193,13 @@ namespace KK_MapSelectDeclutter
                 {
                     if (thumbnailState == ThumbnailState.Default)
                     {
-                        if (isVR) child.overrideSprite = defaultImage.ToSprite();
-                        child.sprite = defaultImage.ToSprite();
+                        child.overrideSprite = defaultImage.ToSprite();
                         child.gameObject.name = child.gameObject.name + " " + GUID;
-
-                    } 
+                    }
                 }
                 else if (child.gameObject.name == "MapThumbnail" + " " + GUID && child.transform.parent.gameObject.name != "Dark" && thumbnailState == ThumbnailState.Unset)
                 {
-                    if (isVR) child.overrideSprite = null;
+                    child.overrideSprite = null;
                 }
             }
         }
