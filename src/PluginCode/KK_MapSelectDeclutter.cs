@@ -195,24 +195,6 @@ namespace KK_MapSelectDeclutter
             }
         }
 
-        private static void UnsetMapThumbnailOverrideTexture(bool isVR)
-        {
-            string gameObjectLookup = isVR ? "MainCanvas/Panel" : "FreeHScene/Canvas/Panel";
-
-            var parent = GameObject.Find(gameObjectLookup);
-            Image[] children = parent.transform.GetComponentsInChildren<Image>(true);
-
-            foreach (Image child in children)
-            {
-                if (child.gameObject.name == "MapThumbnail" + " " + GUID && child.transform.parent.gameObject.name != "Dark")
-                {
-
-                    if (isVR) child.overrideSprite = null;
-
-                }
-            }
-        }
-
         private static void SetMainCanvasThumbnail(bool isVR, ThumbnailState thumbnailState)
         {
             
