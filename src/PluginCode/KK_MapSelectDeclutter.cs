@@ -62,7 +62,7 @@ namespace KK_MapSelectDeclutter
                 isVR = inMapScreen;
             }
             
-
+            //desktop version's map select is a whole separate scene, which means we need to wait until the scene is loaded to try removing thumbnails
             [HarmonyPostfix]
             [HarmonyPatch(typeof(MapSelectMenuScene), "Start")]
             private static void Post_MapSelectMenuScene(MapSelectMenuScene __instance, ref IEnumerator __result)
