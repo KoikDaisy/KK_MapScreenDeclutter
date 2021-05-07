@@ -1,7 +1,7 @@
 # KK_MapSelectDeclutter v1.0.0
 
 ## Introduction
-Removes default maps from map selection menu and adds default "unknown" map icon
+Removes vanilla maps from map selection menu and adds default "unknown" map icon
 
 ### Compatible with:
 * Koikatu
