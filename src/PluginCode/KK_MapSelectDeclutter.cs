@@ -67,10 +67,9 @@ namespace KK_MapSelectDeclutter
 
                 IEnumerator Postfix()
                 {
+                    GameObject.Find("MapSelectMenu/Canvas/Panel/RightBG/btnEnter").GetComponent<Button>().onClick.AddListener(() => { SetMainCanvasThumbnail(isVR, ThumbnailState.Unset); });
                     yield return new WaitUntil(() => GameObject.Find("MapSelectMenu/Canvas/Panel/ScrollView/Content/NodeFrame(Clone)/MapButton") != null);
                     DeclutterMapList();
-
-                    GameObject.Find("MapSelectMenu/Canvas/Panel/RightBG/btnEnter").GetComponent<Button>().onClick.AddListener(() => { SetMainCanvasThumbnail(isVR, ThumbnailState.Unset); });
                 }
             }
 
@@ -145,6 +144,7 @@ namespace KK_MapSelectDeclutter
                         }
 
                         image.gameObject.transform.SetParent(trashcan.transform);
+                        image.gameObject.name = image.gameObject.name + " " + GUID;
                     }
                 }
 
