@@ -21,7 +21,7 @@ namespace KK_MapSelectDeclutter
     {
         public const string PluginName = "KK_MapSelectDeclutter";
         public const string GUID = "koikdaisy.kkmapselectdeclutter";
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.2";
 
         internal static new ManualLogSource Logger;
 
